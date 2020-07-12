@@ -42,7 +42,7 @@ x = random.randint(screenDistance + borderWidht,
 y = random.randint(screenDistance + borderWidht,
                    (screen_height - screenDistance - borderWidht)/2)
 direction = 0  # 0 - horizontal direita 1 - vertical baixo 2 - horizontal esquerda 3 - vertical cima
-speed = 4
+speed = 3
 
 # Food
 food_block = 10
@@ -60,6 +60,14 @@ def generateFood():
 
 
 generateFood()
+
+# Collision Function
+def collision(px, py, ox, oy, object_width, object_height, player_width, player_height):
+    if (px <= ox + object_width and px >= ox and py >= oy and py <= oy + object_height) or (px + player_width >= ox and px + player_width <= ox + object_width and py + player_height <= oy + object_height and py + player_height >= oy) or (px <= ox + object_width and px >= ox and py + player_height <= oy + object_height and py + player_height >= oy) or (px + player_width >= ox and px + player_width <= ox + object_width and py >= oy and py <= oy + object_height):
+        return True 
+    else:
+        return False
+
 
 # FPS
 fps = 60
@@ -116,7 +124,12 @@ while RUNNING:
     if x >= screen_width - screenDistance - borderWidht or x <= screenDistance + borderWidht or y >= screen_height - screenDistance - borderWidht or y <= screenDistance - borderWidht:
         RUNNING = False
         continue
+
+    # Snake eat apple
+    if collision(x, y, fx, fy, food_block, food_block, snake_block, snake_block):
+        generateFood()
     
+
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
 
@@ -125,5 +138,9 @@ while RUNNING:
 
     # Update Screen
     pygame.display.flip()
+
+
+
+
 
 
