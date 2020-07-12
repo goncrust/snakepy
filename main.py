@@ -26,25 +26,11 @@ pygame.mixer.music.load("soundtrack/Prof Oak.wav")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.1)
 
-
-for event in pygame.event.get():
-    if event.type == KEYDOWN or event.type == KEYUP:
-        
-
 # Colors
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (128, 0, 128)
-
-#Borders
-widht = 2
-pygame.draw.line(screen, purple, (630, 470), (10, 470), widht)
-pygame.draw.line(screen, purple, (10, 470), (10, 10), widht)
-pygame.draw.line(screen, purple, (630, 470), (630, 10), widht)
-pygame.draw.line(screen, purple, (630, 10), (10, 10), widht)
-
-
 
 # Snake position and movement
 x = random.randint(0, 427)
@@ -63,19 +49,41 @@ while RUNNING:
     # FPS
     clock.tick(60)
 
-    # Quit
+    # Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             RUNNING = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                direction = 3
+            if event.key == pygame.K_DOWN:
+                direction = 1
+            if event.key == pygame.K_RIGHT:
+                direction = 0
+            if event.key == pygame.K_LEFT:
+                direction = 2
 
     # --------------- GameLoop -------------------
 
     # Clear Screen
     screen.fill((0, 0, 0))
 
+    # Borders
+    widht = 2
+    pygame.draw.line(screen, purple, (630, 470), (10, 470), widht)
+    pygame.draw.line(screen, purple, (10, 470), (10, 10), widht)
+    pygame.draw.line(screen, purple, (630, 470), (630, 10), widht)
+    pygame.draw.line(screen, purple, (630, 10), (10, 10), widht)
+
     # Move Snake
     if direction == 0:
         x += speed
+    elif direction == 1:
+        y += speed
+    elif direction == 2:
+        x -= speed
+    elif direction == 3:
+        y -= speed
 
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
