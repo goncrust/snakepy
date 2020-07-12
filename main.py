@@ -10,6 +10,7 @@ screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+
 # RUNNING VARIABLE
 RUNNING = True
 
@@ -23,7 +24,6 @@ pygame.display.set_icon(iconsnake)
 # Border variables
 screenDistance = 10
 borderWidht = 2
-
 # Setup music
 pygame.mixer.music.load("soundtrack/Prof Oak.wav")
 pygame.mixer.music.play()
@@ -86,6 +86,7 @@ while RUNNING:
             if event.key == pygame.K_LEFT:
                 direction = 2
 
+
     # --------------- GameLoop -------------------
 
     # Clear Screen
@@ -111,6 +112,11 @@ while RUNNING:
     elif direction == 3:
         y -= speed
 
+    # Kill Snake
+    if x >= screen_width - screenDistance - borderWidht or x <= screenDistance + borderWidht or y >= screen_height - screenDistance - borderWidht or y <= screenDistance - borderWidht:
+        RUNNING = False
+        continue
+    
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
 
@@ -119,3 +125,5 @@ while RUNNING:
 
     # Update Screen
     pygame.display.flip()
+
+
