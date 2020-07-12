@@ -11,3 +11,5 @@ while running:
             running = False
 
     pygame.display.flip()
+
+print("test")
