@@ -8,7 +8,6 @@ pygame.init()
 # Create screen
 screen_width = 640
 screen_height = 480
-snake_block = 10
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # RUNNING VARIABLE
@@ -20,6 +19,10 @@ iconsnake = pygame.image.load("images/snake_icon1.png")
 # Configure window
 pygame.display.set_caption("Snake")
 pygame.display.set_icon(iconsnake)
+
+# Border variables
+screenDistance = 10
+borderWidht = 2
 
 # Setup music
 pygame.mixer.music.load("soundtrack/Prof Oak.wav")
@@ -33,10 +36,30 @@ blue = (0, 0, 255)
 purple = (128, 0, 128)
 
 # Snake position and movement
-x = random.randint(0, 427)
-y = random.randint(0, 320)
+snake_block = 10
+x = random.randint(screenDistance + borderWidht,
+                   (screen_width - screenDistance - borderWidht)/2)
+y = random.randint(screenDistance + borderWidht,
+                   (screen_height - screenDistance - borderWidht)/2)
 direction = 0  # 0 - horizontal direita 1 - vertical baixo 2 - horizontal esquerda 3 - vertical cima
 speed = 4
+
+# Food
+food_block = 10
+fx = 0
+fy = 0
+
+
+def generateFood():
+    global fx
+    global fy
+    fx = random.randint(screenDistance + borderWidht,
+                        screen_width - screenDistance - borderWidht)
+    fy = random.randint(screenDistance + borderWidht,
+                        screen_height - screenDistance - borderWidht)
+
+
+generateFood()
 
 # FPS
 fps = 60
@@ -69,11 +92,14 @@ while RUNNING:
     screen.fill((0, 0, 0))
 
     # Borders
-    widht = 2
-    pygame.draw.line(screen, purple, (630, 470), (10, 470), widht)
-    pygame.draw.line(screen, purple, (10, 470), (10, 10), widht)
-    pygame.draw.line(screen, purple, (630, 470), (630, 10), widht)
-    pygame.draw.line(screen, purple, (630, 10), (10, 10), widht)
+    pygame.draw.line(screen, purple, (screen_width - screenDistance,
+                                      screen_height - screenDistance), (screenDistance, screen_height - screenDistance), borderWidht)
+    pygame.draw.line(screen, purple, (screenDistance, screen_height - screenDistance),
+                     (screenDistance, screenDistance), borderWidht)
+    pygame.draw.line(screen, purple, (screen_width - screenDistance,
+                                      screen_height - screenDistance), (screen_width - screenDistance, screenDistance), borderWidht)
+    pygame.draw.line(screen, purple, (screen_width - screenDistance, screenDistance),
+                     (screenDistance, screenDistance), borderWidht)
 
     # Move Snake
     if direction == 0:
@@ -87,6 +113,9 @@ while RUNNING:
 
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
+
+    # Draw food
+    pygame.draw.rect(screen, red, [fx, fy, food_block, food_block])
 
     # Update Screen
     pygame.display.flip()
