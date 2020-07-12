@@ -12,4 +12,4 @@ while running:
 
     pygame.display.flip()
 
-print("test")
+
