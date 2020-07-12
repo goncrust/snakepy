@@ -4,7 +4,7 @@ pygame.init()
 screen = pygame.display.set_mode((640, 480))
 
 running = True
-iconsnake = pygame.image.load("snake_icon1.png")
+iconsnake = pygame.image.load("images/snake_icon1.png")
 pygame.display.set_caption("Snake")
 pygame.display.set_icon(iconsnake)
 
