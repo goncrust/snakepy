@@ -16,18 +16,21 @@ pygame.mixer.music.load("soundtrack/Prof Oak.wav")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.0)
 
+
+for event in pygame.event.get():
+    if event.type == KEYDOWN or event.type == KEYUP:
+        
+
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (128, 0, 128)
 
-widht = 11
-pygame.draw.line(screen, purple, (640, 480), (0, 480), widht)
-pygame.draw.line(screen, purple, (0, 480), (0, 0), widht)
-pygame.draw.line(screen, purple, (640, 480), (640, 0), widht)
-pygame.draw.line(screen, purple, (640, 0), (0, 0), widht)
-
-
+widht = 2
+pygame.draw.line(screen, purple, (630, 470), (10, 470), widht)
+pygame.draw.line(screen, purple, (10, 470), (10, 10), widht)
+pygame.draw.line(screen, purple, (630, 470), (630, 10), widht)
+pygame.draw.line(screen, purple, (630, 10), (10, 10), widht)
 
 while RUNNING:
     for event in pygame.event.get():
@@ -47,5 +50,5 @@ while RUNNING:
 
     if x1 >= screen_width or x1 < 0 or y1 >= screen_height or y1 < 0:
         game_close = True    
-    
-    
+
+
