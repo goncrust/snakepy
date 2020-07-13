@@ -17,6 +17,7 @@ GAMEOVER = False
 # Load images
 iconsnake = pygame.image.load("images/snake_icon1.png")
 gameover = pygame.image.load("images/game_over.jpg")
+gameover = pygame.transform.scale(gameover, (screen_width, screen_height))
 gameoverrect = gameover.get_rect()
 
 # Configure window
@@ -129,12 +130,12 @@ while RUNNING:
 
     # Kill Snake
     if (x >= screen_width - screenDistance - borderWidht - snake_block) or (x <= screenDistance + borderWidht) or (y >= screen_height - screenDistance - borderWidht - snake_block) or (y <= screenDistance + borderWidht):
-        #RUNNING = False
+        # RUNNING = False
         GAMEOVER = True
 
     if (GAMEOVER):
         screen.fill((0, 0, 0))
-        screen.blit(gameover, gameoverrect)
+        screen.blit(gameover, (0, 0))
         pygame.display.flip()
         continue
 
