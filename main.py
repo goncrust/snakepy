@@ -10,7 +10,6 @@ screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-
 # RUNNING VARIABLE
 RUNNING = True
 
@@ -24,6 +23,7 @@ pygame.display.set_icon(iconsnake)
 # Border variables
 screenDistance = 10
 borderWidht = 2
+
 # Setup music
 pygame.mixer.music.load("soundtrack/Prof Oak.wav")
 pygame.mixer.music.play()
@@ -38,11 +38,11 @@ purple = (128, 0, 128)
 # Snake position and movement
 snake_block = 10
 x = random.randint(screenDistance + borderWidht,
-                   (screen_width - screenDistance - borderWidht)/2)
+                   (screen_width - screenDistance - borderWidht - snake_block)/2)
 y = random.randint(screenDistance + borderWidht,
-                   (screen_height - screenDistance - borderWidht)/2)
+                   (screen_height - screenDistance - borderWidht - snake_block)/2)
 direction = 0  # 0 - horizontal direita 1 - vertical baixo 2 - horizontal esquerda 3 - vertical cima
-speed = 3
+speed = 0.5
 
 # Food
 food_block = 10
@@ -54,17 +54,19 @@ def generateFood():
     global fx
     global fy
     fx = random.randint(screenDistance + borderWidht,
-                        screen_width - screenDistance - borderWidht)
+                        screen_width - screenDistance - borderWidht - food_block)
     fy = random.randint(screenDistance + borderWidht,
-                        screen_height - screenDistance - borderWidht)
+                        screen_height - screenDistance - borderWidht - food_block)
 
 
 generateFood()
 
 # Collision Function
+
+
 def collision(px, py, ox, oy, object_width, object_height, player_width, player_height):
     if (px <= ox + object_width and px >= ox and py >= oy and py <= oy + object_height) or (px + player_width >= ox and px + player_width <= ox + object_width and py + player_height <= oy + object_height and py + player_height >= oy) or (px <= ox + object_width and px >= ox and py + player_height <= oy + object_height and py + player_height >= oy) or (px + player_width >= ox and px + player_width <= ox + object_width and py >= oy and py <= oy + object_height):
-        return True 
+        return True
     else:
         return False
 
@@ -94,20 +96,19 @@ while RUNNING:
             if event.key == pygame.K_LEFT:
                 direction = 2
 
-
     # --------------- GameLoop -------------------
 
     # Clear Screen
     screen.fill((0, 0, 0))
 
     # Borders
-    pygame.draw.line(screen, purple, (screen_width - screenDistance,
-                                      screen_height - screenDistance), (screenDistance, screen_height - screenDistance), borderWidht)
-    pygame.draw.line(screen, purple, (screenDistance, screen_height - screenDistance),
+    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
+                                      screen_height - screenDistance - borderWidht), (screenDistance, screen_height - screenDistance - borderWidht), borderWidht)
+    pygame.draw.line(screen, purple, (screenDistance, screen_height - screenDistance - borderWidht),
                      (screenDistance, screenDistance), borderWidht)
-    pygame.draw.line(screen, purple, (screen_width - screenDistance,
-                                      screen_height - screenDistance), (screen_width - screenDistance, screenDistance), borderWidht)
-    pygame.draw.line(screen, purple, (screen_width - screenDistance, screenDistance),
+    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
+                                      screen_height - screenDistance - borderWidht), (screen_width - screenDistance - borderWidht, screenDistance), borderWidht)
+    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht, screenDistance),
                      (screenDistance, screenDistance), borderWidht)
 
     # Move Snake
@@ -121,14 +122,13 @@ while RUNNING:
         y -= speed
 
     # Kill Snake
-    if x >= screen_width - screenDistance - borderWidht or x <= screenDistance + borderWidht or y >= screen_height - screenDistance - borderWidht or y <= screenDistance - borderWidht:
+    if (x >= screen_width - screenDistance - borderWidht - snake_block) or (x <= screenDistance + borderWidht) or (y >= screen_height - screenDistance - borderWidht - snake_block) or (y <= screenDistance + borderWidht):
         RUNNING = False
         continue
 
     # Snake eat apple
     if collision(x, y, fx, fy, food_block, food_block, snake_block, snake_block):
         generateFood()
-    
 
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
@@ -138,9 +138,3 @@ while RUNNING:
 
     # Update Screen
     pygame.display.flip()
-
-
-
-
-
-
