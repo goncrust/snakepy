@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+from Images.imageLoader import *
 
 # Init pygame
 pygame.init()
@@ -15,8 +16,6 @@ RUNNING = True
 GAMEOVER = False
 
 # Load images
-iconsnake = pygame.image.load("images/snake_icon1.png")
-gameover = pygame.image.load("images/game_over.jpg")
 gameover = pygame.transform.scale(gameover, (screen_width, screen_height))
 gameoverrect = gameover.get_rect()
 
