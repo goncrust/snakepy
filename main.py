@@ -20,7 +20,7 @@ gameover = pygame.image.load("images/game_over.jpg")
 gameoverrect = gameover.get_rect()
 
 # Configure window
-pygame.display.set_caption("Snake")
+pygame.display.set_caption("Snake | Points 0")
 pygame.display.set_icon(iconsnake)
 
 # Border variables
@@ -73,6 +73,9 @@ def collision(px, py, ox, oy, object_width, object_height, player_width, player_
     else:
         return False
 
+
+# Points
+points = 0
 
 # FPS
 fps = 60
@@ -138,6 +141,8 @@ while RUNNING:
     # Snake eat apple
     if collision(x, y, fx, fy, food_block, food_block, snake_block, snake_block):
         generateFood()
+        points += 1
+        pygame.display.set_caption("Snake | Points " + str(points))
 
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
