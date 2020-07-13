@@ -16,7 +16,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 RUNNING = True
 GAMEOVER = False
 
-# Load images
+# Images
 gameover = pygame.transform.scale(gameover, (screen_width, screen_height))
 gameoverrect = gameover.get_rect()
 
