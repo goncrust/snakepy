@@ -2,6 +2,7 @@ import pygame
 import random
 import time
 import menu
+from Images.imageLoader import *
 
 # Init pygame
 pygame.init()
@@ -16,15 +17,11 @@ RUNNING = True
 GAMEOVER = False
 
 # Load images
-iconsnake = pygame.image.load("images/snake_icon1.png")
-gameover = pygame.image.load("images/game_over.jpg")
-playbutton = pygame.image.load("images/play.png")
-settingsbutton = pygame.image.load("images/settings.png")
-exitbutton = pygame.image.load("images/exit.png")
+gameover = pygame.transform.scale(gameover, (screen_width, screen_height))
 gameoverrect = gameover.get_rect()
 
 # Configure window
-pygame.display.set_caption("Snake")
+pygame.display.set_caption("Snake | Points 0")
 pygame.display.set_icon(iconsnake)
 
 # Border variables
@@ -77,6 +74,9 @@ def collision(px, py, ox, oy, object_width, object_height, player_width, player_
     else:
         return False
 
+
+# Points
+points = 0
 
 # FPS
 fps = 60
@@ -132,18 +132,20 @@ while RUNNING:
 
     # Kill Snake
     if (x >= screen_width - screenDistance - borderWidht - snake_block) or (x <= screenDistance + borderWidht) or (y >= screen_height - screenDistance - borderWidht - snake_block) or (y <= screenDistance + borderWidht):
-        #RUNNING = False
+        # RUNNING = False
         GAMEOVER = True
 
     if (GAMEOVER):
         screen.fill((0, 0, 0))
-        screen.blit(gameover, gameoverrect)
+        screen.blit(gameover, (0, 0))
         pygame.display.flip()
         continue
 
     # Snake eat apple
     if collision(x, y, fx, fy, food_block, food_block, snake_block, snake_block):
         generateFood()
+        points += 1
+        pygame.display.set_caption("Snake | Points " + str(points))
 
     # Draw Snake
     pygame.draw.rect(screen, green, [x, y, snake_block, snake_block])
