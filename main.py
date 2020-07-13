@@ -10,11 +10,14 @@ screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-# RUNNING VARIABLE
+# RUNNING AND GAMEOVER VARIABLE
 RUNNING = True
+GAMEOVER = False
 
 # Load images
 iconsnake = pygame.image.load("images/snake_icon1.png")
+gameover = pygame.image.load("images/game_over.jpg")
+gameoverrect = gameover.get_rect()
 
 # Configure window
 pygame.display.set_caption("Snake")
@@ -42,7 +45,7 @@ x = random.randint(screenDistance + borderWidht,
 y = random.randint(screenDistance + borderWidht,
                    (screen_height - screenDistance - borderWidht - snake_block)/2)
 direction = 0  # 0 - horizontal direita 1 - vertical baixo 2 - horizontal esquerda 3 - vertical cima
-speed = 0.5
+speed = 4
 
 # Food
 food_block = 10
@@ -123,7 +126,13 @@ while RUNNING:
 
     # Kill Snake
     if (x >= screen_width - screenDistance - borderWidht - snake_block) or (x <= screenDistance + borderWidht) or (y >= screen_height - screenDistance - borderWidht - snake_block) or (y <= screenDistance + borderWidht):
-        RUNNING = False
+        #RUNNING = False
+        GAMEOVER = True
+
+    if (GAMEOVER):
+        screen.fill((0, 0, 0))
+        screen.blit(gameover, gameoverrect)
+        pygame.display.flip()
         continue
 
     # Snake eat apple
