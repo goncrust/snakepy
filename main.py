@@ -108,8 +108,6 @@ while RUNNING:
     # Clear Screen
     screen.fill((0, 0, 0))
 
-    menuScreen()
-
     # Borders
     pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
                                       screen_height - screenDistance - borderWidht), (screenDistance, screen_height - screenDistance - borderWidht), borderWidht)
