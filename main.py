@@ -12,6 +12,9 @@ screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+# Create menu
+menu = menu.Menu(screen)
+
 # RUNNING AND GAMEOVER VARIABLE
 RUNNING = True
 GAMEOVER = False
@@ -196,15 +199,14 @@ while RUNNING:
     # Draw food
     pygame.draw.rect(screen, red, [fx, fy, food_block, food_block])
 
-<<<<<<< HEAD
-    menu.menuScreen(screen)
-=======
     # Update directions
     indexDirections = len(directions) - 1
     while indexDirections != 0:
         directions[indexDirections] = directions[indexDirections - 1]
         indexDirections -= 1
->>>>>>> 7c2cf411488f5ddb28c452eecf10d3c7150d63d9
+    
+    # Open menu
+    menu.menuScreen()
 
     # Update Screen
     pygame.display.flip()
