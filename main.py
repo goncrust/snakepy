@@ -102,6 +102,16 @@ while RUNNING:
                 direction = 0
             if event.key == pygame.K_LEFT:
                 direction = 2
+        if event.type == pygame.MOUSEMOTION:
+            if event.pos == (75, 200):
+                screen.blit(playbuttonselected, (75, 200))
+            if event.pos == (275, 200):
+                screen.blit(settingsbuttonselected, (275, 200))
+            if event.pos == (475, 200):
+                screen.blit(exitbuttonselected, (475, 200))
+        else:
+            pass
+    
 
     # --------------- GameLoop -------------------
 
@@ -150,6 +160,8 @@ while RUNNING:
 
     # Draw food
     pygame.draw.rect(screen, red, [fx, fy, food_block, food_block])
+
+    menu.menuScreen(screen)
 
     # Update Screen
     pygame.display.flip()
