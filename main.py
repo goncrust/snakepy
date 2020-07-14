@@ -25,8 +25,8 @@ pygame.display.set_caption("Snake | Points 0")
 pygame.display.set_icon(iconsnake)
 
 # Border variables
-screenDistance = 10
-borderWidht = 2
+screenDistance = 5
+borderWidht = 5
 
 # Setup music
 pygame.mixer.music.load("soundtrack/Prof Oak.wav")
@@ -42,16 +42,17 @@ purple = (128, 0, 128)
 # Snake position and movement
 snake = []
 snake_block = 10
-x = random.randint(screenDistance + borderWidht + 10,
-                   (screen_width - screenDistance - borderWidht - snake_block)/2)
-y = random.randint(screenDistance + borderWidht + 10,
-                   (screen_height - screenDistance - borderWidht - snake_block)/2)
+x = random.randrange(screenDistance + borderWidht + 20,
+                     (screen_width - screenDistance - borderWidht - snake_block)/2, 10)
+y = random.randrange(screenDistance + borderWidht + 20,
+                     (screen_height - screenDistance - borderWidht - snake_block)/2, 10)
 
 snake.append([x, y])
 snake.append([x - 10, y])
-directions = [0, 0]
+snake.append([x - 20, y])
+directions = [0, 0, 0]
 # direction = 0  # 0 - horizontal direita 1 - vertical baixo 2 - horizontal esquerda 3 - vertical cima
-speed = 0.5
+speed = 10
 
 # Food
 food_block = 10
@@ -62,10 +63,10 @@ fy = 0
 def generateFood():
     global fx
     global fy
-    fx = random.randint(screenDistance + borderWidht,
-                        screen_width - screenDistance - borderWidht - food_block)
-    fy = random.randint(screenDistance + borderWidht,
-                        screen_height - screenDistance - borderWidht - food_block)
+    fx = random.randrange(screenDistance + borderWidht,
+                          screen_width - screenDistance - borderWidht - food_block, 10)
+    fy = random.randrange(screenDistance + borderWidht,
+                          screen_height - screenDistance - borderWidht - food_block, 10)
 
 
 generateFood()
@@ -84,7 +85,7 @@ def collision(px, py, ox, oy, object_width, object_height, player_width, player_
 points = 0
 
 # FPS
-fps = 60
+difficulty = 5
 clock = pygame.time.Clock()
 
 
@@ -92,7 +93,7 @@ clock = pygame.time.Clock()
 while RUNNING:
 
     # FPS
-    clock.tick(60)
+    clock.tick(difficulty)
 
     # Events
     for event in pygame.event.get():
@@ -190,6 +191,10 @@ while RUNNING:
     while indexDirections != 0:
         directions[indexDirections] = directions[indexDirections - 1]
         indexDirections -= 1
+
+    # for s in snake:
+        # if collision(snake[0][0], snake[0][1], s[0], s[1], snake_block, snake_block, snake_block, snake_block):
+        #    GAMEOVER = True
 
     # Update Screen
     pygame.display.flip()
