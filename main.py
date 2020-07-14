@@ -12,6 +12,9 @@ screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+# Create menu
+menu = menu.Menu(screen)
+
 # RUNNING AND GAMEOVER VARIABLE
 RUNNING = True
 GAMEOVER = False
@@ -112,6 +115,17 @@ while RUNNING:
             if event.key == pygame.K_LEFT:
                 if directions[0] != 0:
                     directions[0] = 2
+        if event.type == pygame.MOUSEMOTION:
+            if event.pos == (75, 200):
+                screen.blit(playbuttonselected, (75, 200))
+            if event.pos == (275, 200):
+                screen.blit(settingsbuttonselected, (275, 200))
+            if event.pos == (475, 200):
+                screen.blit(exitbuttonselected, (475, 200))
+        else:
+            pass
+    
+                
 
     # --------------- GameLoop -------------------
 
@@ -191,6 +205,9 @@ while RUNNING:
     while indexDirections != 0:
         directions[indexDirections] = directions[indexDirections - 1]
         indexDirections -= 1
+    
+    # Open menu
+    menu.menuScreen()
 
     # for s in snake:
         # if collision(snake[0][0], snake[0][1], s[0], s[1], snake_block, snake_block, snake_block, snake_block):
