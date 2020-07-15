@@ -8,6 +8,7 @@ from Images.imageLoader import *
 pygame.init()
 
 # Create screen
+# default = 640x480
 screen_width = 640
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -42,6 +43,16 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (128, 0, 128)
 
+# Collision Function
+
+
+def collision(px, py, ox, oy, object_width, object_height, player_width, player_height):
+    if (px < ox + object_width and px >= ox and py >= oy and py < oy + object_height) or (px + player_width > ox and px + player_width < ox + object_width and py + player_height < oy + object_height and py + player_height > oy) or (px < ox + object_width and px >= ox and py + player_height < oy + object_height and py + player_height > oy) or (px + player_width > ox and px + player_width < ox + object_width and py >= oy and py < oy + object_height):
+        return True
+    else:
+        return False
+
+
 # Snake position and movement
 snake = []
 snake_block = 10
@@ -71,18 +82,12 @@ def generateFood():
     fy = random.randrange(screenDistance + borderWidht,
                           screen_height - screenDistance - borderWidht - food_block, 10)
 
+    for s in snake:
+        if (collision(s[0], s[1], fx, fy, food_block, food_block, snake_block, snake_block)):
+            generateFood()
+
 
 generateFood()
-
-# Collision Function
-
-
-def collision(px, py, ox, oy, object_width, object_height, player_width, player_height):
-    if (px < ox + object_width and px >= ox and py >= oy and py < oy + object_height) or (px + player_width > ox and px + player_width < ox + object_width and py + player_height < oy + object_height and py + player_height > oy) or (px < ox + object_width and px >= ox and py + player_height < oy + object_height and py + player_height > oy) or (px + player_width > ox and px + player_width < ox + object_width and py >= oy and py < oy + object_height):
-        return True
-    else:
-        return False
-
 
 # Points
 points = 0
