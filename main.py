@@ -78,7 +78,7 @@ generateFood()
 
 
 def collision(px, py, ox, oy, object_width, object_height, player_width, player_height):
-    if (px <= ox + object_width and px >= ox and py >= oy and py <= oy + object_height) or (px + player_width >= ox and px + player_width <= ox + object_width and py + player_height <= oy + object_height and py + player_height >= oy) or (px <= ox + object_width and px >= ox and py + player_height <= oy + object_height and py + player_height >= oy) or (px + player_width >= ox and px + player_width <= ox + object_width and py >= oy and py <= oy + object_height):
+    if (px < ox + object_width and px >= ox and py >= oy and py < oy + object_height) or (px + player_width > ox and px + player_width < ox + object_width and py + player_height < oy + object_height and py + player_height > oy) or (px < ox + object_width and px >= ox and py + player_height < oy + object_height and py + player_height > oy) or (px + player_width > ox and px + player_width < ox + object_width and py >= oy and py < oy + object_height):
         return True
     else:
         return False
@@ -115,6 +115,8 @@ while RUNNING:
             if event.key == pygame.K_LEFT:
                 if directions[0] != 0:
                     directions[0] = 2
+            if event.key == pygame.K_p:
+                print("pause")
         if event.type == pygame.MOUSEMOTION:
             if event.pos == (75, 200):
                 screen.blit(playbuttonselected, (75, 200))
@@ -124,8 +126,6 @@ while RUNNING:
                 screen.blit(exitbuttonselected, (475, 200))
         else:
             pass
-    
-                
 
     # --------------- GameLoop -------------------
 
@@ -133,14 +133,14 @@ while RUNNING:
     screen.fill((0, 0, 0))
 
     # Borders
-    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
-                                      screen_height - screenDistance - borderWidht), (screenDistance, screen_height - screenDistance - borderWidht), borderWidht)
-    pygame.draw.line(screen, purple, (screenDistance, screen_height - screenDistance - borderWidht),
-                     (screenDistance, screenDistance), borderWidht)
-    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
-                                      screen_height - screenDistance - borderWidht), (screen_width - screenDistance - borderWidht, screenDistance), borderWidht)
-    pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht, screenDistance),
-                     (screenDistance, screenDistance), borderWidht)
+    pygame.draw.rect(screen, purple, [
+                     screenDistance, screenDistance, screen_width - screenDistance*2, borderWidht])
+    pygame.draw.rect(screen, purple, [
+                     screenDistance, screenDistance, borderWidht, screen_height - screenDistance*2])
+    pygame.draw.rect(screen, purple, [
+                     screenDistance, screen_height - screenDistance - borderWidht, screen_width - screenDistance*2, borderWidht])
+    pygame.draw.rect(screen, purple, [
+                     screen_width - screenDistance - borderWidht, screenDistance, borderWidht, screen_height - screenDistance*2])
 
     # Move Snake
     index = 0
@@ -157,7 +157,7 @@ while RUNNING:
         index += 1
 
     # Kill Snake
-    if (snake[0][0] >= screen_width - screenDistance - borderWidht - snake_block) or (snake[0][0] <= screenDistance + borderWidht) or (snake[0][1] >= screen_height - screenDistance - borderWidht - snake_block) or (snake[0][1] <= screenDistance + borderWidht):
+    if (snake[0][0] > screen_width - screenDistance - borderWidht - snake_block) or (snake[0][0] < screenDistance + borderWidht) or (snake[0][1] > screen_height - screenDistance - borderWidht - snake_block) or (snake[0][1] < screenDistance + borderWidht):
         # RUNNING = False
         GAMEOVER = True
 
@@ -205,13 +205,13 @@ while RUNNING:
     while indexDirections != 0:
         directions[indexDirections] = directions[indexDirections - 1]
         indexDirections -= 1
-    
+
     # Open menu
     menu.menuScreen()
 
-    # for s in snake:
-        # if collision(snake[0][0], snake[0][1], s[0], s[1], snake_block, snake_block, snake_block, snake_block):
-        #    GAMEOVER = True
+    for s in range(1, len(snake)):
+        if collision(snake[0][0], snake[0][1], snake[s][0], snake[s][1], snake_block, snake_block, snake_block, snake_block):
+            GAMEOVER = True
 
     # Update Screen
     pygame.display.flip()
