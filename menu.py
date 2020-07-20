@@ -8,65 +8,65 @@ class Menu:
         self.selected = 1
 
         self.screen = screen
-        self.screenSizeX = screen.get_width()
-        self.screenSizeY = screen.get_height()
+        self.screen_width = screen.get_width()
+        self.screen_height = screen.get_height()
 
-        self.playbuttonX = self.screenSizeX/8
-        self.playbuttonY = self.screenSizeY/3
-        self.settingsbuttonX = (self.screenSizeX/8)*3.5
-        self.settingsbuttonY = self.screenSizeY/3
-        self.exitbuttonX = (self.screenSizeX/8)*6
-        self.exitbuttonY = self.screenSizeY/3
+        self.play_button_x = self.screen_width/8
+        self.play_button_y = self.screen_height/3
+        self.settings_button_x = (self.screen_width/8)*3.5
+        self.settings_button_y = self.screen_height/3
+        self.exit_button_x = (self.screen_width/8)*6
+        self.exit_button_y = self.screen_height/3
 
-        self.playbutton_width = round(self.screenSizeX/6.4)
-        self.playbutton_height = round(self.screenSizeY/4.8)
-        self.settingsbutton_width = round(self.screenSizeX/6.4)
-        self.settingsbutton_height = round(self.screenSizeY/4.8)
-        self.exitbutton_width = round(self.screenSizeX/6.4)
-        self.exitbutton_height = round(self.screenSizeY/4.8)
+        self.play_button_width = round(self.screen_width/6.4)
+        self.play_button_height = round(self.screen_height/4.8)
+        self.settings_button_width = round(self.screen_width/6.4)
+        self.settings_button_height = round(self.screen_height/4.8)
+        self.exit_button_width = round(self.screen_width/6.4)
+        self.exit_button_height = round(self.screen_height/4.8)
 
-        self.playbutton = pygame.transform.scale(
-            playbutton, (self.playbutton_width, self.playbutton_height))
-        self.settingsbutton = pygame.transform.scale(
-            settingsbutton, (self.settingsbutton_width,
-                             self.settingsbutton_height))
-        self.exitbutton = pygame.transform.scale(
-            exitbutton, (self.exitbutton_width, self.exitbutton_height))
+        self.play_button = pygame.transform.scale(
+            play_button, (self.play_button_width, self.play_button_height))
+        self.settings_button = pygame.transform.scale(
+            settings_button, (self.settings_button_width,
+                              self.settings_button_height))
+        self.exit_button = pygame.transform.scale(
+            exit_button, (self.exit_button_width, self.exit_button_height))
 
-        self.playbuttonselected = pygame.transform.scale(
-            playbuttonselected, (self.playbutton_width, self.playbutton_height))
-        self.settingsbuttonselected = pygame.transform.scale(
-            settingsbuttonselected, (self.settingsbutton_width,
-                                     self.settingsbutton_height))
-        self.exitbuttonselected = pygame.transform.scale(
-            exitbuttonselected, (self.exitbutton_width, self.exitbutton_height))
+        self.play_button_select = pygame.transform.scale(
+            play_button_select, (self.play_button_width, self.play_button_height))
+        self.settings_button_select = pygame.transform.scale(
+            settings_button_select, (self.settings_button_width,
+                                     self.settings_button_height))
+        self.exit_button_select = pygame.transform.scale(
+            exit_button_select, (self.exit_button_width, self.exit_button_height))
 
-    def selectbutton(self, mosX, mosY):
+    def select_button(self, mos_x, mos_y):
 
-        if mosX >= self.playbuttonX and mosX <= self.playbuttonX + self.playbutton_width and mosY >= self.playbuttonY and mosY <= self.playbuttonY + self.playbutton_height:
+        if mos_x >= self.play_button_x and mos_x <= self.play_button_x + self.play_button_width and mos_y >= self.play_button_y and mos_y <= self.play_button_y + self.play_button_height:
             self.selected = 1
-        if mosX >= self.settingsbuttonX and mosX <= self.settingsbuttonX + self.settingsbutton_width and mosY >= self.settingsbuttonY and mosY <= self.settingsbuttonY + self.settingsbutton_height:
+        if mos_x >= self.settings_button_x and mos_x <= self.settings_button_x + self.settings_button_width and mos_y >= self.settings_button_y and mos_y <= self.settings_button_y + self.settings_button_height:
             self.selected = 2
-        if mosX >= self.exitbuttonX and mosX <= self.exitbuttonX + self.exitbutton_width and mosY >= self.exitbuttonY and mosY <= self.exitbuttonY + self.exitbutton_height:
+        if mos_x >= self.exit_button_x and mos_x <= self.exit_button_x + self.exit_button_width and mos_y >= self.exit_button_y and mos_y <= self.exit_button_y + self.exit_button_height:
             self.selected = 3
 
-    def menuScreen(self):
+    def menu_screen(self):
 
         if self.selected == 1:
-            self.screen.blit(self.playbuttonselected,
-                             (self.playbuttonX, self.playbuttonY))
+            self.screen.blit(self.play_button_select,
+                             (self.play_button_x, self.play_button_y))
         else:
             self.screen.blit(
-                self.playbutton, (self.playbuttonX, self.playbuttonY))
+                self.play_button, (self.play_button_x, self.play_button_y))
         if self.selected == 2:
-            self.screen.blit(self.settingsbuttonselected,
-                             (self.settingsbuttonX, self.settingsbuttonY))
+            self.screen.blit(self.settings_button_select,
+                             (self.settings_button_x, self.settings_button_y))
         else:
-            self.screen.blit(self.settingsbutton,
-                             (self.settingsbuttonX, self.settingsbuttonY))
+            self.screen.blit(self.settings_button,
+                             (self.settings_button_x, self.settings_button_y))
         if self.selected == 3:
-            self.screen.blit(self.exitbuttonselected,
-                             (self.exitbuttonX, self.exitbuttonY))
+            self.screen.blit(self.exit_button_select,
+                             (self.exit_button_x, self.exit_button_y))
         else:
             self.screen.blit(
-                self.exitbutton, (self.exitbuttonX, self.exitbuttonY))
+                self.exit_button, (self.exit_button_x, self.exit_button_y))

@@ -22,15 +22,14 @@ GAMEOVER = False
 
 # Images
 gameover = pygame.transform.scale(gameover, (screen_width, screen_height))
-gameoverrect = gameover.get_rect()
 
 # Configure window
 pygame.display.set_caption("Snake | Points 0")
-pygame.display.set_icon(iconsnake)
+pygame.display.set_icon(snake_icon)
 
 # Border variables
-screenDistance = 5
-borderWidth = 5
+screen_distance = 5
+border_width = 5
 
 # Setup music
 pygame.mixer.music.load("soundtrack/Prof Oak.wav")
@@ -56,10 +55,10 @@ def collision(px, py, ox, oy, object_width, object_height, player_width, player_
 # Snake position and movement
 snake = []
 snake_block = 10
-x = random.randrange(screenDistance + borderWidth + 20,
-                     (screen_width - screenDistance - borderWidth - snake_block)/2, 10)
-y = random.randrange(screenDistance + borderWidth + 20,
-                     (screen_height - screenDistance - borderWidth - snake_block)/2, 10)
+x = random.randrange(screen_distance + border_width + 20,
+                     (screen_width - screen_distance - border_width - snake_block)/2, 10)
+y = random.randrange(screen_distance + border_width + 20,
+                     (screen_height - screen_distance - border_width - snake_block)/2, 10)
 
 snake.append([x, y])
 snake.append([x - 10, y])
@@ -74,20 +73,20 @@ fx = 0
 fy = 0
 
 
-def generateFood():
+def generate_food():
     global fx
     global fy
-    fx = random.randrange(screenDistance + borderWidth,
-                          screen_width - screenDistance - borderWidth - food_block, 10)
-    fy = random.randrange(screenDistance + borderWidth,
-                          screen_height - screenDistance - borderWidth - food_block, 10)
+    fx = random.randrange(screen_distance + border_width,
+                          screen_width - screen_distance - border_width - food_block, 10)
+    fy = random.randrange(screen_distance + border_width,
+                          screen_height - screen_distance - border_width - food_block, 10)
 
     for s in snake:
         if (collision(s[0], s[1], fx, fy, food_block, food_block, snake_block, snake_block)):
-            generateFood()
+            generate_food()
 
 
-generateFood()
+generate_food()
 
 # Points
 points = 0
@@ -129,19 +128,19 @@ while RUNNING:
     screen.fill((0, 0, 0))
 
     # Menu
-    mosX, mosY = pygame.mouse.get_pos()
-    menu.selectbutton(mosX, mosY)
-    menu.menuScreen()
+    mos_x, mos_y = pygame.mouse.get_pos()
+    menu.select_button(mos_x, mos_y)
+    menu.menu_screen()
 
     # Borders
     pygame.draw.rect(screen, purple, [
-                     screenDistance, screenDistance, screen_width - screenDistance*2, borderWidth])
+                     screen_distance, screen_distance, screen_width - screen_distance*2, border_width])
     pygame.draw.rect(screen, purple, [
-                     screenDistance, screenDistance, borderWidth, screen_height - screenDistance*2])
+                     screen_distance, screen_distance, border_width, screen_height - screen_distance*2])
     pygame.draw.rect(screen, purple, [
-                     screenDistance, screen_height - screenDistance - borderWidth, screen_width - screenDistance*2, borderWidth])
+                     screen_distance, screen_height - screen_distance - border_width, screen_width - screen_distance*2, border_width])
     pygame.draw.rect(screen, purple, [
-                     screen_width - screenDistance - borderWidth, screenDistance, borderWidth, screen_height - screenDistance*2])
+                     screen_width - screen_distance - border_width, screen_distance, border_width, screen_height - screen_distance*2])
 
     # Move Snake
     index = 0
@@ -158,7 +157,7 @@ while RUNNING:
         index += 1
 
     # Kill Snake
-    if (snake[0][0] > screen_width - screenDistance - borderWidth - snake_block) or (snake[0][0] < screenDistance + borderWidth) or (snake[0][1] > screen_height - screenDistance - borderWidth - snake_block) or (snake[0][1] < screenDistance + borderWidth):
+    if (snake[0][0] > screen_width - screen_distance - border_width - snake_block) or (snake[0][0] < screen_distance + border_width) or (snake[0][1] > screen_height - screen_distance - border_width - snake_block) or (snake[0][1] < screen_distance + border_width):
         # RUNNING = False
         GAMEOVER = True
 
@@ -171,7 +170,7 @@ while RUNNING:
     # Snake eat apple
     if collision(snake[0][0], snake[0][1], fx, fy, food_block, food_block, snake_block, snake_block):
         # Generate new food
-        generateFood()
+        generate_food()
 
         # Add points
         points += 1
@@ -202,10 +201,10 @@ while RUNNING:
     pygame.draw.rect(screen, red, [fx, fy, food_block, food_block])
 
     # Update directions
-    indexDirections = len(directions) - 1
-    while indexDirections != 0:
-        directions[indexDirections] = directions[indexDirections - 1]
-        indexDirections -= 1
+    index_directions = len(directions) - 1
+    while index_directions != 0:
+        directions[index_directions] = directions[index_directions - 1]
+        index_directions -= 1
 
     for s in range(1, len(snake)):
         if collision(snake[0][0], snake[0][1], snake[s][0], snake[s][1], snake_block, snake_block, snake_block, snake_block):
