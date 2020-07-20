@@ -115,22 +115,18 @@ while RUNNING:
             if event.key == pygame.K_LEFT:
                 if directions[0] != 0:
                     directions[0] = 2
-        if event.type == pygame.MOUSEMOTION:
-            if event.pos == (75, 200):
-                screen.blit(playbuttonselected, (75, 200))
-            if event.pos == (275, 200):
-                screen.blit(settingsbuttonselected, (275, 200))
-            if event.pos == (475, 200):
-                screen.blit(exitbuttonselected, (475, 200))
-        else:
-            pass
-    
-                
 
     # --------------- GameLoop -------------------
 
     # Clear Screen
     screen.fill((0, 0, 0))
+
+    # Menu
+    mosX, mosY = pygame.mouse.get_pos()
+    menu.selectbutton(mosX, mosY)
+    menu.menuScreen()
+    
+    
 
     # Borders
     pygame.draw.line(screen, purple, (screen_width - screenDistance - borderWidht,
@@ -206,8 +202,6 @@ while RUNNING:
         directions[indexDirections] = directions[indexDirections - 1]
         indexDirections -= 1
     
-    # Open menu
-    menu.menuScreen()
 
     # for s in snake:
         # if collision(snake[0][0], snake[0][1], s[0], s[1], snake_block, snake_block, snake_block, snake_block):
