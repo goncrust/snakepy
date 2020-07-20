@@ -1,5 +1,5 @@
 import pygame
-from Images.imageLoader import *
+from images.image_loader import *
 
 
 class Menu:

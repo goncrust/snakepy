@@ -2,7 +2,7 @@ import pygame
 import random
 import time
 import menu
-from Images.imageLoader import *
+from images.image_loader import *
 
 # Init pygame
 pygame.init()
@@ -32,7 +32,7 @@ screen_distance = 5
 border_width = 5
 
 # Setup music
-pygame.mixer.music.load("soundtrack/Prof Oak.wav")
+pygame.mixer.music.load("soundtrack/prof_oak.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.1)
 
