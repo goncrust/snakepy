@@ -18,26 +18,28 @@ class Menu:
         self.exitbuttonX = (self.screenSizeX/8)*6
         self.exitbuttonY = self.screenSizeY/3
 
-        self.playbutton_width = playbutton.get_width()
-        self.playbutton_height = playbutton.get_height()
-        self.settingsbutton_width = settingsbutton.get_width()
-        self.settingsbutton_height = settingsbutton.get_height()
-        self.exitbutton_width = exitbutton.get_width()
-        self.exitbutton_height = exitbutton.get_height()
+        self.playbutton_width = round(self.screenSizeX/6.4)
+        self.playbutton_height = round(self.screenSizeY/4.8)
+        self.settingsbutton_width = round(self.screenSizeX/6.4)
+        self.settingsbutton_height = round(self.screenSizeY/4.8)
+        self.exitbutton_width = round(self.screenSizeX/6.4)
+        self.exitbutton_height = round(self.screenSizeY/4.8)
 
         self.playbutton = pygame.transform.scale(
-            playbutton, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            playbutton, (self.playbutton_width, self.playbutton_height))
         self.settingsbutton = pygame.transform.scale(
-            settingsbutton, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            settingsbutton, (self.settingsbutton_width,
+                             self.settingsbutton_height))
         self.exitbutton = pygame.transform.scale(
-            exitbutton, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            exitbutton, (self.exitbutton_width, self.exitbutton_height))
 
         self.playbuttonselected = pygame.transform.scale(
-            playbuttonselected, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            playbuttonselected, (self.playbutton_width, self.playbutton_height))
         self.settingsbuttonselected = pygame.transform.scale(
-            settingsbuttonselected, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            settingsbuttonselected, (self.settingsbutton_width,
+                                     self.settingsbutton_height))
         self.exitbuttonselected = pygame.transform.scale(
-            exitbuttonselected, (round(self.screenSizeX/6.4), round(self.screenSizeY/4.8)))
+            exitbuttonselected, (self.exitbutton_width, self.exitbutton_height))
 
     def selectbutton(self, mosX, mosY):
 
