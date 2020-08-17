@@ -45,10 +45,12 @@ class Menu:
 
         if mos_x >= self.play_button_x and mos_x <= self.play_button_x + self.play_button_width and mos_y >= self.play_button_y and mos_y <= self.play_button_y + self.play_button_height:
             self.selected = 1
-        if mos_x >= self.settings_button_x and mos_x <= self.settings_button_x + self.settings_button_width and mos_y >= self.settings_button_y and mos_y <= self.settings_button_y + self.settings_button_height:
+        elif mos_x >= self.settings_button_x and mos_x <= self.settings_button_x + self.settings_button_width and mos_y >= self.settings_button_y and mos_y <= self.settings_button_y + self.settings_button_height:
             self.selected = 2
-        if mos_x >= self.exit_button_x and mos_x <= self.exit_button_x + self.exit_button_width and mos_y >= self.exit_button_y and mos_y <= self.exit_button_y + self.exit_button_height:
+        elif mos_x >= self.exit_button_x and mos_x <= self.exit_button_x + self.exit_button_width and mos_y >= self.exit_button_y and mos_y <= self.exit_button_y + self.exit_button_height:
             self.selected = 3
+        else:
+            self.selected = 0
 
     def menu_screen(self):
 
@@ -70,3 +72,13 @@ class Menu:
         else:
             self.screen.blit(
                 self.exit_button, (self.exit_button_x, self.exit_button_y))
+
+    def menu_option(self):
+        if self.selected == 0:
+            return
+        if self.selected == 1:
+            return 1
+        if self.selected == 2:
+            return 2
+        if self.selected == 3:
+            return 3

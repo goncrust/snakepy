@@ -15,6 +15,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 # Create menu
 menu = menu.Menu(screen)
+in_menu = True
+click = False
 
 # RUNNING AND GAMEOVER VARIABLE
 RUNNING = True
@@ -121,6 +123,10 @@ while RUNNING:
                     directions[0] = 2
             if event.key == pygame.K_p:
                 print("pause")
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if in_menu:
+                    click = True
 
     # --------------- GameLoop -------------------
 
@@ -128,9 +134,21 @@ while RUNNING:
     screen.fill((0, 0, 0))
 
     # Menu
-    mos_x, mos_y = pygame.mouse.get_pos()
-    menu.select_button(mos_x, mos_y)
-    menu.menu_screen()
+    if in_menu:
+        mos_x, mos_y = pygame.mouse.get_pos()
+        menu.select_button(mos_x, mos_y)
+        if click:
+            option = menu.menu_option()
+            if option == 1:
+                in_menu = False
+            elif option == 2:
+                in_menu = False
+            elif option == 3:
+                RUNNING = False
+            click = False
+        menu.menu_screen()
+        pygame.display.flip()
+        continue
 
     # Borders
     pygame.draw.rect(screen, purple, [
