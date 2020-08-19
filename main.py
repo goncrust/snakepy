@@ -142,7 +142,8 @@ while RUNNING:
             if option == 1:
                 in_menu = False
             elif option == 2:
-                in_menu = False
+                # Nothing
+                pass
             elif option == 3:
                 RUNNING = False
             click = False

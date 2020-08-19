@@ -7,6 +7,8 @@ class Menu:
 
         self.selected = 1
 
+        self.in_options = False
+
         self.screen = screen
         self.screen_width = screen.get_width()
         self.screen_height = screen.get_height()
@@ -54,6 +56,9 @@ class Menu:
 
     def menu_screen(self):
 
+        if (self.in_options):
+            return
+
         if self.selected == 1:
             self.screen.blit(self.play_button_select,
                              (self.play_button_x, self.play_button_y))
@@ -79,6 +84,6 @@ class Menu:
         if self.selected == 1:
             return 1
         if self.selected == 2:
-            return 2
+            self.in_options = True
         if self.selected == 3:
             return 3
