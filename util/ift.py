@@ -14,13 +14,13 @@ def image_from_text(text, img_size, bg_color, text_place, text_size, text_color,
     img.save(save)
 
 
-image_from_text("SOUND", (150, 100), (0, 0, 0), (0, 0), 40,
+image_from_text("SOUND", (150, 40), (0, 0, 0), (0, 0), 40,
                 (255, 0, 0), "images/sound_off.png")
 
-image_from_text("SOUND", (150, 100), (0, 0, 0), (0, 0), 40,
+image_from_text("SOUND", (150, 40), (0, 0, 0), (0, 0), 40,
                 (0, 255, 0), "images/sound_on.png")
 
-image_from_text("BACK", (115, 100), (0, 0, 0), (0, 0), 40,
+image_from_text("BACK", (115, 40), (0, 0, 0), (0, 0), 40,
                 (255, 255, 255), "images/back.png")
 
 args = sys.argv

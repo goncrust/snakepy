@@ -37,6 +37,7 @@ border_width = 5
 pygame.mixer.music.load("soundtrack/prof_oak.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.1)
+sound = True
 
 # Colors
 red = (255, 0, 0)
@@ -138,16 +139,30 @@ while RUNNING:
         mos_x, mos_y = pygame.mouse.get_pos()
         menu.select_button(mos_x, mos_y)
         if click:
-            option = menu.menu_option()
-            if option == 1:
-                in_menu = False
-            elif option == 2:
-                # Nothing
-                pass
-            elif option == 3:
-                RUNNING = False
+            option, in_options = menu.menu_option_click()
+            if not in_options:
+                if option == 0:
+                    pass
+                elif option == 1:
+                    in_menu = False
+                elif option == 2:
+                    pass
+                elif option == 3:
+                    RUNNING = False
+            else:
+                if option == 0:
+                    pass
+                elif option == 1:
+                    if sound:
+                        pygame.mixer.music.pause()
+                        sound = False
+                    else:
+                        pygame.mixer.music.unpause()
+                        sound = True
+                elif option == 2:
+                    pass
             click = False
-        menu.menu_screen()
+        menu.menu_screen(sound)
         pygame.display.flip()
         continue
 
