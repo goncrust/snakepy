@@ -26,6 +26,10 @@ class Menu:
         self.exit_button_x = (self.screen_width/8)*6
         self.exit_button_y = self.screen_height/3
 
+        # Paused
+        self.paused_label_x = (self.screen_width/8)*2.6
+        self.paused_label_y = (self.screen_height/5)*0.5
+
         # Options menu
         self.back_button_x = (self.screen_width/8)*3.25
         self.back_button_y = (self.screen_height/5)*2.55
@@ -36,6 +40,7 @@ class Menu:
 
         # --- buttons size ---
         # Variables
+        # Main menu
         self.play_button_width = round(self.screen_width/6.4)
         self.play_button_height = round(self.screen_height/4.8)
         self.settings_button_width = round(self.screen_width/6.4)
@@ -43,6 +48,7 @@ class Menu:
         self.exit_button_width = round(self.screen_width/6.4)
         self.exit_button_height = round(self.screen_height/4.8)
 
+        # Options menu
         self.back_button_width = round(self.screen_width/5.57)
         self.back_button_height = round(self.screen_height/12)
         self.sound_off_button_width = round(self.screen_width/4.27)
@@ -50,7 +56,12 @@ class Menu:
         self.sound_on_button_width = round(self.screen_width/4.27)
         self.sound_on_button_height = round(self.screen_height/12)
 
+        # Paused
+        self.paused_label_width = round(self.screen_width/2.56)
+        self.paused_label_height = round(self.screen_height/8)
+
         # Set size
+        # Main menu
         self.play_button = pygame.transform.scale(
             play_button, (self.play_button_width, self.play_button_height))
         self.settings_button = pygame.transform.scale(
@@ -67,12 +78,17 @@ class Menu:
         self.exit_button_select = pygame.transform.scale(
             exit_button_select, (self.exit_button_width, self.exit_button_height))
 
+        # Options menu
         self.back_button = pygame.transform.scale(
             back_button, (self.back_button_width, self.back_button_height))
         self.sound_off = pygame.transform.scale(
             sound_off_button, (self.sound_off_button_width, self.sound_off_button_height))
         self.sound_on = pygame.transform.scale(
             sound_on_button, (self.sound_on_button_width, self.sound_on_button_height))
+
+        # Paused
+        self.paused_label = pygame.transform.scale(
+            paused_label, (self.paused_label_width, self.paused_label_height))
 
     # Check selected item
     def select_button(self, mos_x, mos_y):
@@ -98,7 +114,7 @@ class Menu:
             self.selected = 0
 
     # Render menu
-    def menu_screen(self, sound):
+    def menu_screen(self, sound, paused):
 
         # In options
         if (self.in_options):
@@ -113,6 +129,11 @@ class Menu:
                              (self.back_button_x, self.back_button_y))
 
             return
+
+        # Paused
+        if paused:
+            self.screen.blit(self.paused_label,
+                             (self.paused_label_x, self.paused_label_y))
 
         # In main menu
         if self.selected == 1:

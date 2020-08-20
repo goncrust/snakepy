@@ -17,6 +17,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 menu = menu.Menu(screen)
 in_menu = True
 click = False
+paused = False
 
 # RUNNING AND GAMEOVER VARIABLE
 RUNNING = True
@@ -95,7 +96,7 @@ generate_food()
 points = 0
 
 # FPS
-difficulty = 5
+difficulty = 7
 clock = pygame.time.Clock()
 
 
@@ -133,8 +134,10 @@ while RUNNING:
                 if directions[0] != 0:
                     directions[0] = 2
                     done = True
-            if event.key == pygame.K_p:
-                print("pause")
+            if event.key == pygame.K_ESCAPE:
+                if not in_menu:
+                    in_menu = True
+                    paused = True
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if in_menu:
@@ -163,6 +166,11 @@ while RUNNING:
                     pass
                 elif option == 1:
                     in_menu = False
+                    if paused:
+                        paused = False
+
+                    click = False
+                    continue
                 elif option == 2:
                     pass
                 elif option == 3:
@@ -180,7 +188,7 @@ while RUNNING:
                 elif option == 2:
                     pass
             click = False
-        menu.menu_screen(sound)
+        menu.menu_screen(sound, paused)
         pygame.display.flip()
         continue
 

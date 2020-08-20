@@ -23,6 +23,9 @@ image_from_text("SOUND", (150, 40), (0, 0, 0), (0, 0), 40,
 image_from_text("BACK", (115, 40), (0, 0, 0), (0, 0), 40,
                 (255, 255, 255), "images/back.png")
 
+image_from_text("PAUSED", (250, 60), (0, 0, 0), (0, 0), 60,
+                (255, 255, 255), "images/paused_label.png")
+
 args = sys.argv
 
 
