@@ -106,22 +106,33 @@ while RUNNING:
     clock.tick(difficulty)
 
     # Events
+    done = False
     for event in pygame.event.get():
+
+        # Fix bug #1
+        if done:
+            break
+
         if event.type == pygame.QUIT:
             RUNNING = False
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 if directions[0] != 1:
                     directions[0] = 3
-            if event.key == pygame.K_DOWN:
+                    done = True
+            elif event.key == pygame.K_DOWN:
                 if directions[0] != 3:
                     directions[0] = 1
-            if event.key == pygame.K_RIGHT:
+                    done = True
+            elif event.key == pygame.K_RIGHT:
                 if directions[0] != 2:
                     directions[0] = 0
-            if event.key == pygame.K_LEFT:
+                    done = True
+            elif event.key == pygame.K_LEFT:
                 if directions[0] != 0:
                     directions[0] = 2
+                    done = True
             if event.key == pygame.K_p:
                 print("pause")
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -133,6 +144,13 @@ while RUNNING:
 
     # Clear Screen
     screen.fill((0, 0, 0))
+
+    # Gameover screen
+    if (GAMEOVER):
+        screen.fill((0, 0, 0))
+        screen.blit(gameover, (0, 0))
+        pygame.display.flip()
+        continue
 
     # Menu
     if in_menu:
@@ -194,11 +212,6 @@ while RUNNING:
     if (snake[0][0] > screen_width - screen_distance - border_width - snake_block) or (snake[0][0] < screen_distance + border_width) or (snake[0][1] > screen_height - screen_distance - border_width - snake_block) or (snake[0][1] < screen_distance + border_width):
         # RUNNING = False
         GAMEOVER = True
-
-    if (GAMEOVER):
-        screen.fill((0, 0, 0))
-        screen.blit(gameover, (0, 0))
-        pygame.display.flip()
         continue
 
     # Snake eat apple
@@ -240,6 +253,7 @@ while RUNNING:
         directions[index_directions] = directions[index_directions - 1]
         index_directions -= 1
 
+    # Snake collision with itself
     for s in range(1, len(snake)):
         if collision(snake[0][0], snake[0][1], snake[s][0], snake[s][1], snake_block, snake_block, snake_block, snake_block):
             GAMEOVER = True
