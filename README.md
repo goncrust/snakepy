@@ -4,7 +4,7 @@
 
 ![snakepy](screen.png)
 
-## **Requirements**
+## Requirements
 
 - python (3 or above)
 - pygame
